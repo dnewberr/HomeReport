@@ -11,83 +11,164 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
-
-
+    var coreData = CoreDataStack()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        deleteRecords()
+        checkDataStore()
+        
+        let managedObjectContext = coreData.persistentContainer.viewContext
+        let tabBarController = self.window?.rootViewController as! UITabBarController
+        
+        // First tab - Home
+        let homeListNavController = tabBarController.viewControllers?[0] as! UINavigationController
+        let homeListViewController = homeListNavController.topViewController as! HomeListViewController
+        
+        homeListViewController.managedObjectContext = managedObjectContext
+        
+        // Second Tab - Summary
+//        let summaryNavController = tabBarController.viewControllers![0] as! SummaryViewController
+        
         return true
     }
-
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
-
+    
+    func applicationWillResignActive(_ application: UIApplication) { }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) { }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) { }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) { }
+    
     func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        // Saves changes in the application's managed object context before the application terminates.
-        self.saveContext()
+        coreData.saveContext()
     }
-
-    // MARK: - Core Data stack
-
-    lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-        */
-        let container = NSPersistentContainer(name: "Home_Report")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+    
+    func checkDataStore() {
+        let managedObjectContect = coreData.persistentContainer.viewContext
+        
+        do {
+            let homeCount = try managedObjectContect.count(for: Home.fetchRequest())
+            if homeCount == 0 {
+                uploadSampleData()
             }
-        })
-        return container
-    }()
-
-    // MARK: - Core Data Saving support
-
-    func saveContext () {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
+        } catch {
+            fatalError("Error in counting home record")
         }
     }
-
+    
+    func uploadSampleData() {
+        let url = Bundle.main.url(forResource: "homes", withExtension: "json")
+        let data = try? Data(contentsOf: url!)
+        
+        do {
+            let jsonResult = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! NSDictionary
+            let jsonArray = jsonResult.value(forKey: "home") as! NSArray
+            
+            for json in jsonArray {
+                createHome(json as! [String: AnyObject])
+            }
+            
+            coreData.saveContext()
+        } catch {
+            fatalError("Error uploading sample data")
+        }
+    }
+    
+    func createHome(_ homeData:[String:AnyObject]) {
+        guard let city = homeData["city"] else {
+            return
+        }
+        
+        guard let price = homeData["price"] else {
+            return
+        }
+        
+        guard let bed = homeData["bed"] else {
+            return
+        }
+        
+        guard let bath = homeData["bath"] else {
+            return
+        }
+        
+        guard let sqft = homeData["sqft"] else {
+            return
+        }
+        
+        var image: UIImage?
+        if let currentImage = homeData["image"] {
+            image = UIImage(named: currentImage as! String)
+        }
+        
+        guard let category = homeData["category"] else {
+            return
+        }
+        let homeType = (category as! NSDictionary)["homeType"] as? String
+        
+        guard let status = homeData["status"] else {
+            return
+        }
+        let isForSale = (status as! NSDictionary)["isForSale"] as? Bool
+        
+        let home = homeType?.caseInsensitiveCompare("condo") == .orderedSame
+            ? Condo(context: coreData.persistentContainer.viewContext)
+            : SingleFamily(context: coreData.persistentContainer.viewContext)
+        
+        if let unitsPerBuilding = homeData["unitsPerBuilding"] {
+            (home as! Condo).unitsPerBuilding = unitsPerBuilding.int16Value
+        }
+        
+        if let lotSize = homeData["lotSize"] {
+            (home as! SingleFamily).lotSize = lotSize.int16Value
+        }
+        
+        home.city = city as? String
+        home.price = price as! Double
+        home.bed = bed.int16Value
+        home.bath = bath.int16Value
+        home.sqft = sqft.int16Value
+        home.homeType = homeType
+        home.image = NSData.init(data: UIImageJPEGRepresentation(image!, 1.0)!)
+        home.isForSale = isForSale!
+        
+        if let saleHistories = homeData["saleHistory"] {
+            addSaleHistory(saleHistories, home)
+        }
+    }
+    
+    func addSaleHistory(_ saleHistories: AnyObject, _ home: Home) {
+        let saleHistoryData = home.saleHistory?.mutableCopy() as! NSMutableSet
+        
+        for saleDetails in saleHistories as! NSArray {
+            let saleData = saleDetails as! [String:AnyObject]
+            let saleHistory = SaleHistory(context: coreData.persistentContainer.viewContext)
+            saleHistory.soldPrice = saleData["soldPrice"] as! Double
+            
+            let soldDateString = saleData["soldDate"] as! String
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            saleHistory.soldDate = dateFormatter.date(from: soldDateString)
+            
+            saleHistoryData.add(saleHistory)
+            home.addToSaleHistory(saleHistory)
+        }
+    }
+    
+    func deleteRecords() {
+        let moc = coreData.persistentContainer.viewContext
+        let homeRequest: NSFetchRequest<Home> = Home.fetchRequest()
+        let saleHistoryRequest: NSFetchRequest<SaleHistory> = SaleHistory.fetchRequest()
+        
+        
+        do {
+            try moc.execute(NSBatchDeleteRequest(fetchRequest: homeRequest as! NSFetchRequest<NSFetchRequestResult>))
+            try moc.execute( NSBatchDeleteRequest(fetchRequest: saleHistoryRequest as! NSFetchRequest<NSFetchRequestResult>))
+        } catch {
+            fatalError("Error deleting records")
+        }
+    }
 }
 
