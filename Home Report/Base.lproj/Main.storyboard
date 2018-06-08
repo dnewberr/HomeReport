@@ -216,7 +216,7 @@
                     <navigationItem key="navigationItem" title="Homes" id="8Bp-83-CAK">
                         <barButtonItem key="rightBarButtonItem" title="Filter" id="tdn-sh-MCK">
                             <connections>
-                                <segue destination="lUo-e6-xa7" kind="show" id="Ez4-IQ-npr"/>
+                                <segue destination="lUo-e6-xa7" kind="show" identifier="filterSegue" id="Ez4-IQ-npr"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -307,7 +307,7 @@
         <scene sceneID="Cf3-wH-dCk">
             <objects>
                 <tableViewController id="lUo-e6-xa7" customClass="FilterTableViewController" customModule="Home_Report" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="IeY-hK-aqX">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="IeY-hK-aqX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -411,6 +411,13 @@
                             <outlet property="delegate" destination="lUo-e6-xa7" id="aTS-bF-3CH"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="condoCell" destination="VNV-1e-HF1" id="6D1-MP-m2X"/>
+                        <outlet property="locationCell" destination="Ubv-lY-VXb" id="0fu-Xf-FNM"/>
+                        <outlet property="priceHighLowCell" destination="Iz3-mg-dK5" id="1It-Zk-ugk"/>
+                        <outlet property="priceLowHighCell" destination="Pxa-j2-b21" id="YKG-wz-dfp"/>
+                        <outlet property="singleFamilyCell" destination="eS2-1X-LVy" id="EQq-YQ-ZJm"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ama-UW-hj8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
