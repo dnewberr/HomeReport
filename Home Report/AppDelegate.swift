@@ -131,7 +131,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         home.bath = bath.int16Value
         home.sqft = sqft.int16Value
         home.homeType = homeType
-        home.image = NSData.init(data: UIImageJPEGRepresentation(image!, 1.0)!)
+        home.image = UIImageJPEGRepresentation(image!, 1.0)!
         home.isForSale = isForSale!
         
         if let saleHistories = homeData["saleHistory"] {

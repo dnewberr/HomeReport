@@ -14,7 +14,7 @@ import CoreData
 public class Home: NSManagedObject {
     func getHomesByStatus(_ isForSale: Bool, _ moc: NSManagedObjectContext) -> [Home] {
         let request: NSFetchRequest<Home> = Home.fetchRequest()
-        request.predicate = NSPredicate(format: "isForSale = %@", String(isForSale))
+        request.predicate = NSPredicate(format: "isForSale = %@", NSNumber(value: isForSale))
         
         do {
             let homes = try moc.fetch(request)

@@ -23,42 +23,58 @@ class HomeListViewController: UIViewController, UITableViewDelegate, UITableView
     var home: Home? = nil
     var isForSale: Bool = true
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.loadData()
+        
+        loadData()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func segmentedAction(_ sender: UISegmentedControl) {
-        let selectedVal = sender.titleForSegment(at: sender.selectedSegmentIndex)
-        self.isForSale = selectedVal == "For Sale"
-        
-        print(isForSale)
-        self.loadData()
+        let selectedValue = sender.titleForSegment(at: sender.selectedSegmentIndex)
+        isForSale = selectedValue == "For Sale" ? true : false
+        loadData()
     }
     
-    // MARK: TableViewDataSource
+    
+    // MARK: Tableview datasource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.homes.count
+        return homes.count
     }
     
-    // MARK: TableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "homeCell") as! HomeListTableViewCell
-        cell.configureCell(homes[indexPath.row])
+        let cell = tableView.dequeueReusableCell(withIdentifier: "homeCell", for: indexPath) as! HomeListTableViewCell
+        
+        let currentHome = homes[indexPath.row]
+        cell.configureCell(currentHome)
+        
         return cell
     }
     
-    // MARK: Custom Functions
+    // MARK: Private function
     private func loadData() {
-        self.homes = home!.getHomesByStatus(self.isForSale, self.managedObjectContext)
-        self.tableView.reloadData()
+        homes = home!.getHomesByStatus(isForSale, managedObjectContext)
+        tableView.reloadData()
     }
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
+
 }
