@@ -22,14 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let managedObjectContext = coreData.persistentContainer.viewContext
         let tabBarController = self.window?.rootViewController as! UITabBarController
         
-        // First tab - Home
-        let homeListNavController = tabBarController.viewControllers?[0] as! UINavigationController
-        let homeListViewController = homeListNavController.topViewController as! HomeListViewController
-        
+        let homeListViewController = (tabBarController.viewControllers?[0] as! UINavigationController).topViewController as! HomeListViewController
+//        let summaryListViewController = (tabBarController.viewControllers?[1] as! UINavigationController).topViewController as! SummaryTableViewController
+        let summaryListViewController = tabBarController.viewControllers?[1] as! SummaryTableViewController
         homeListViewController.managedObjectContext = managedObjectContext
-        
-        // Second Tab - Summary
-//        let summaryNavController = tabBarController.viewControllers![0] as! SummaryViewController
+        summaryListViewController.managedObjectContext = managedObjectContext
         
         return true
     }

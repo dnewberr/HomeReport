@@ -10,6 +10,8 @@
 		CD17ACC420CA2974006C9361 /* SaleHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD17ACC320CA2974006C9361 /* SaleHistoryViewController.swift */; };
 		CD17ACC620CA29F2006C9361 /* SaleHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD17ACC520CA29F2006C9361 /* SaleHistoryTableViewCell.swift */; };
 		CD17ACC820CA2CE0006C9361 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD17ACC720CA2CE0006C9361 /* Date+Extension.swift */; };
+		CD17ACCA20CB683E006C9361 /* SummaryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD17ACC920CB683E006C9361 /* SummaryTableViewController.swift */; };
+		CD17ACCC20CB73DC006C9361 /* HomeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD17ACCB20CB73DC006C9361 /* HomeType.swift */; };
 		CD48000320C7A6B100F88846 /* 763000.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD48FFED20C7A6B000F88846 /* 763000.jpg */; };
 		CD48000420C7A6B100F88846 /* 325000.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD48FFEE20C7A6B000F88846 /* 325000.jpg */; };
 		CD48000520C7A6B100F88846 /* 889000.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD48FFEF20C7A6B000F88846 /* 889000.jpg */; };
@@ -42,7 +44,6 @@
 		CD48002A20C7AA4400F88846 /* Condo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD48002220C7AA4400F88846 /* Condo+CoreDataClass.swift */; };
 		CD48002B20C7AA4400F88846 /* Condo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD48002320C7AA4400F88846 /* Condo+CoreDataProperties.swift */; };
 		CD48002E20C8F9B600F88846 /* HomeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD48002D20C8F9B600F88846 /* HomeListViewController.swift */; };
-		CD48003020C8F9C000F88846 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD48002F20C8F9C000F88846 /* SummaryViewController.swift */; };
 		CD48003220C8F9CD00F88846 /* FilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD48003120C8F9CD00F88846 /* FilterTableViewController.swift */; };
 		CD48003520C8FB2500F88846 /* HomeListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD48003420C8FB2500F88846 /* HomeListTableViewCell.swift */; };
 		CD48003820C9030200F88846 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD48003720C9030200F88846 /* Double+Extension.swift */; };
@@ -58,6 +59,8 @@
 		CD17ACC320CA2974006C9361 /* SaleHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleHistoryViewController.swift; sourceTree = "<group>"; };
 		CD17ACC520CA29F2006C9361 /* SaleHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		CD17ACC720CA2CE0006C9361 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		CD17ACC920CB683E006C9361 /* SummaryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryTableViewController.swift; sourceTree = "<group>"; };
+		CD17ACCB20CB73DC006C9361 /* HomeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeType.swift; sourceTree = "<group>"; };
 		CD48000020C7A6B100F88846 /* 1660000.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1660000.jpg; sourceTree = "<group>"; };
 		CD48000120C7A6B100F88846 /* 1698000.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1698000.jpg; sourceTree = "<group>"; };
 		CD48000220C7A6B100F88846 /* 787500.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 787500.jpg; sourceTree = "<group>"; };
@@ -71,7 +74,6 @@
 		CD48002220C7AA4400F88846 /* Condo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Condo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		CD48002320C7AA4400F88846 /* Condo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Condo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CD48002D20C8F9B600F88846 /* HomeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListViewController.swift; sourceTree = "<group>"; };
-		CD48002F20C8F9C000F88846 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		CD48003120C8F9CD00F88846 /* FilterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewController.swift; sourceTree = "<group>"; };
 		CD48003420C8FB2500F88846 /* HomeListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListTableViewCell.swift; sourceTree = "<group>"; };
 		CD48003720C9030200F88846 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
@@ -133,9 +135,9 @@
 		CD48002C20C8F99900F88846 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				CD17ACC920CB683E006C9361 /* SummaryTableViewController.swift */,
 				CD17ACC320CA2974006C9361 /* SaleHistoryViewController.swift */,
 				CD48002D20C8F9B600F88846 /* HomeListViewController.swift */,
-				CD48002F20C8F9C000F88846 /* SummaryViewController.swift */,
 				CD48003120C8F9CD00F88846 /* FilterTableViewController.swift */,
 			);
 			path = controller;
@@ -153,6 +155,7 @@
 		CD48003620C902D700F88846 /* helper */ = {
 			isa = PBXGroup;
 			children = (
+				CD17ACCB20CB73DC006C9361 /* HomeType.swift */,
 				CD48003720C9030200F88846 /* Double+Extension.swift */,
 				CD17ACC720CA2CE0006C9361 /* Date+Extension.swift */,
 			);
@@ -334,15 +337,16 @@
 				CD48002920C7AA4400F88846 /* Home+CoreDataProperties.swift in Sources */,
 				CD48003820C9030200F88846 /* Double+Extension.swift in Sources */,
 				CD48002420C7AA4400F88846 /* SingleFamily+CoreDataClass.swift in Sources */,
-				CD48003020C8F9C000F88846 /* SummaryViewController.swift in Sources */,
 				CD48002520C7AA4400F88846 /* SingleFamily+CoreDataProperties.swift in Sources */,
 				CD48FFB020C7A36800F88846 /* AppDelegate.swift in Sources */,
 				CD48002620C7AA4400F88846 /* SaleHistory+CoreDataClass.swift in Sources */,
 				CD17ACC420CA2974006C9361 /* SaleHistoryViewController.swift in Sources */,
 				CD48002A20C7AA4400F88846 /* Condo+CoreDataClass.swift in Sources */,
+				CD17ACCC20CB73DC006C9361 /* HomeType.swift in Sources */,
 				CD48002820C7AA4400F88846 /* Home+CoreDataClass.swift in Sources */,
 				CD48FFC520C7A3D500F88846 /* CoreDataStack.swift in Sources */,
 				CD48003220C8F9CD00F88846 /* FilterTableViewController.swift in Sources */,
+				CD17ACCA20CB683E006C9361 /* SummaryTableViewController.swift in Sources */,
 				CD48003520C8FB2500F88846 /* HomeListTableViewCell.swift in Sources */,
 				CD48002B20C7AA4400F88846 /* Condo+CoreDataProperties.swift in Sources */,
 				CD17ACC620CA29F2006C9361 /* SaleHistoryTableViewCell.swift in Sources */,
